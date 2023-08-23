@@ -16,12 +16,12 @@ char *jsonify(Json *json, char *buffer) {
 
   char *field2 = json->fields[1]->key;
   char *key2 = json->fields[1]->value;
+  printf("\n{\n\t%s: %s,\n\t%s: %s\n}", field1, key1, field2, key2);
 
   snprintf(buffer, 1024, "\n{\n\t%s: %s,\n\t%s: %s\n}", field1, key1, field2, key2);
   return buffer;
 }
 int main() {
-  printf("Hello world!\n");
   Field username;
   username.key = "username";
   username.value = "mariobro";
@@ -34,6 +34,7 @@ int main() {
   json.fields[0] = &username;
   json.fields[1] = &password;
 
+  
   char buf[1024];
   char *res;    
   res = jsonify(&json, buf);
