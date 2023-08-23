@@ -10,8 +10,15 @@ typedef struct Json {
   Field *fields[2];
 } Json;
 
-void jsonify(Json *json) {
-  printf("\n{\n\t%s: %s,\n\t%s: %s\n}", json->fields[0]->key, json->fields[0]->value, json->fields[1]->key, json->fields[1]->value);
+char *jsonify(Json *json, char *buffer) {
+  char *field1 = json->fields[0]->key;
+  char *key1 = json->fields[0]->value;
+
+  char *field2 = json->fields[1]->key;
+  char *key2 = json->fields[1]->value;
+
+  snprintf(buffer, 1024, "\n{\n\t%s: %s,\n\t%s: %s\n}", field1, key1, field2, key2);
+  return buffer;
 }
 int main() {
   printf("Hello world!\n");
@@ -27,10 +34,9 @@ int main() {
   json.fields[0] = &username;
   json.fields[1] = &password;
 
-  printf("%s %s\n", json.fields[0]->key, json.fields[0]->value); 
-  
-  printf("%s %s", json.fields[1]->key, json.fields[1]->value);
-
-  jsonify(&json);
+  char buf[1024];
+  char *res;    
+  res = jsonify(&json, buf);
+  printf("%s", res);
   return 0;
 }
