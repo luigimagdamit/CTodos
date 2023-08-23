@@ -10,7 +10,8 @@ typedef struct Json {
   Field *fields[2];
 } Json;
 
-char *jsonify(Json *json, char *buffer) {
+char *jsonify(Json *json, int size) {
+  char *buffer = malloc(sizeof(char)*size);
   char *field1 = json->fields[0]->key;
   char *key1 = json->fields[0]->value;
 
@@ -35,9 +36,8 @@ int main() {
   json.fields[1] = &password;
 
   
-  char buf[1024];
   char *res;    
-  res = jsonify(&json, buf);
+  res = jsonify(&json, 1024);
   printf("%s", res);
   return 0;
 }
