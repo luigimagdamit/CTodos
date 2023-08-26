@@ -7,7 +7,7 @@ typedef struct Field {
 } Field;
 
 typedef struct Json {
-  Field *fields[2];
+  Field **fields;
 } Json;
 
 char *jsonify(Json *json, int size) {
@@ -30,8 +30,10 @@ int main() {
   Field password;
   password.key = "password";
   password.value = "riceball12!";
-
+  
+  int field_count = 2;
   Json json;
+  json.fields = (Field **)malloc(sizeof(Field *) * field_count);
   json.fields[0] = &username;
   json.fields[1] = &password;
 
